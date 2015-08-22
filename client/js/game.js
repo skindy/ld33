@@ -1,17 +1,20 @@
 import { default as PhaserContainer } from 'phaser';
 const Phaser = PhaserContainer.Phaser;
 import _ from 'lodash';
-import Monster from './monster';
-import monsterService from './services/monster-service';
-import authService from './services/auth-service';
 import uuid from 'uuid';
 
-const TILE_SIZE = 40;
+import Monster from './monster';
+import Inventory from './inventory';
+
+import monsterService from './services/monster-service';
+import authService from './services/auth-service';
+
 const MONSTER_CENTER = [190, 165];
 
 export default class Game {
   preload() {
     this.load.atlasJSONHash('parts', 'client/img/parts.png', 'client/json/parts.json');
+    this.load.atlasJSONHash('ui', 'client/img/ui.png', 'client/json/ui.json');
     this.load.image('pressStart', 'client/img/press-start.png');
   }
 
@@ -20,10 +23,12 @@ export default class Game {
       this.game.add.existing(this.monster);
       this.monster.x = MONSTER_CENTER[0];
       this.monster.y = MONSTER_CENTER[1];
+      this.inventory = new Inventory(this.game, 400, 225, this.monster.inventory);
+      this.game.add.existing(this.inventory);
+      this.inventory.position.x = 400;
     });
 
-    this.game.stage.backgroundColor = 'ffffff';
-
+    this.game.stage.backgroundColor = 'e0dfcd';
   }
 
   getOrCreateMonster() {

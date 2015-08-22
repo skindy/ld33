@@ -200,3 +200,4 @@ FakesAssemblies/
 node_modules/
 jspm_packages/
 dist/
+_ref

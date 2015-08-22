@@ -22,5 +22,10 @@ export default class Monster extends Phaser.Group {
       this.add(new Part(game, partsLocations[part][0], partsLocations[part][1], data.parts[part]));
     });
     this.stats = data.stats;
+    this.inventory = data.inventory;
+  }
+
+  addPart(part) {
+    _.find(this.parts)
   }
 }
