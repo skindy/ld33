@@ -2,6 +2,7 @@ import { default as PhaserContainer } from 'phaser';
 const Phaser = PhaserContainer.Phaser;
 import _ from 'lodash';
 import Part from './part';
+import events from './events';
 
 export default class Monster extends Phaser.Group {
   constructor(game, data) {
@@ -9,7 +10,7 @@ export default class Monster extends Phaser.Group {
 
     this.monsterName = data.name;
     this.body = this.add(new Part(game, 0, 0, data.parts.body));
-    var partsLocations = {
+    this.partsLocations = {
       headDeco: [this.body.x, this.body.y - (this.body.height / 2)],
       leftArm: [this.body.x - (this.body.width / 2), this.body.y],
       rightArm: [this.body.x + (this.body.width / 2), this.body.y],
@@ -18,14 +19,40 @@ export default class Monster extends Phaser.Group {
       rightLeg: [this.body.x + (this.body.width * (1/6)), this.body.y + (this.body.height / 2)]
     };
 
-    this.parts = _.forEach(['headDeco', 'leftArm', 'rightArm', 'tailDeco', 'leftLeg', 'rightLeg'], (part) => {
-      this.add(new Part(game, partsLocations[part][0], partsLocations[part][1], data.parts[part]));
+    this.parts = {};
+    _.forEach(['headDeco', 'leftArm', 'rightArm', 'tailDeco', 'leftLeg', 'rightLeg'], (slot) => {
+      let part = new Part(game, 0, 0, data.parts[slot]);
+      this.movePart(part);
+      part.scaleToMonster();
+      this.parts[slot] = part;
+      console.log(part.x);
+      console.log(part.y);
+      this.add(part);
     });
     this.stats = data.stats;
-    this.inventory = data.inventory;
+    this.inventory = _.map(data.inventory, (partData) => {
+      return new Part(this.game, 0, 0, partData);
+    });
+    events.eatPart.add(this.eatPart, this);
+    events.replacePart.add(this.replacePart, this);
   }
 
-  addPart(part) {
-    _.find(this.parts)
+  movePart(part) {
+
+    part.x = this.partsLocations[part.slot][0];
+    part.y = this.partsLocations[part.slot][1];
+  }
+
+  eatPart(part) {
+    part.destroy();
+  }
+
+  replacePart(part) {
+    var removed = this.parts[part.slot];
+    this.remove(removed);
+    this.parts[part.slot] = part;
+    this.add(part);
+    this.inventory.push(removed);
+    events.addToInventory.dispatch(removed);
   }
 }

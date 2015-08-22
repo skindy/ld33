@@ -16,12 +16,16 @@ export default class Part extends Phaser.Sprite {
   constructor(game, x, y, data) {
     super(game, x, y, 'parts');
 
+    this.title = data.name;
     this.id = data.id;
     this.frameName = `${data.species}/${_.kebabCase(data.slot)}.png`;
     this.species = data.species;
     this.slot = data.slot;
     this.stats = data.stats;
+    this.category = data.category;
+  }
 
+  scaleToMonster() {
     this.anchor.x = partsMap[this.slot].anchor[0];
     this.anchor.y = partsMap[this.slot].anchor[1];
 
@@ -34,3 +38,4 @@ export default class Part extends Phaser.Sprite {
     this.height = newHeight;
   }
 }
+

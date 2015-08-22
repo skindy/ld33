@@ -16,6 +16,7 @@ export default {
   parts: {
     headDeco: {
       id: uuid.v4(),
+      name: 'Ghosty Head Strap-On',
       'slot': 'headDeco',
       'species': 'ghosty',
       category: 'heads',
@@ -23,12 +24,14 @@ export default {
     },
     body: {
       id: uuid.v4(),
+      name: 'Ghosty Body',
       'slot': 'body',
       'species': 'ghosty',
       'stats': stats(1, 1, 1)
     },
     rightArm: {
       id: uuid.v4(),
+      name: 'Ghosty Right Arm',
       'slot': 'rightArm',
       'species': 'ghosty',
       category: 'arms',
@@ -36,6 +39,7 @@ export default {
     },
     leftArm: {
       id: uuid.v4(),
+      name: 'Ghosty Left Arm',
       'slot': 'leftArm',
       'species': 'ghosty',
       category: 'arms',
@@ -43,6 +47,7 @@ export default {
     },
     rightLeg: {
       id: uuid.v4(),
+      name: 'Ghosty Right Leg',
       'slot': 'rightLeg',
       'species': 'ghosty',
       category: 'legs',
@@ -50,6 +55,7 @@ export default {
     },
     leftLeg: {
       id: uuid.v4(),
+      name: 'Ghosty Left Leg',
       'slot': 'leftLeg',
       'species': 'ghosty',
       category: 'legs',
@@ -57,6 +63,7 @@ export default {
     },
     tailDeco: {
       id: uuid.v4(),
+      name: 'Ghosty Tail',
       'slot': 'tailDeco',
       'species': 'ghosty',
       category: 'tails',
@@ -66,6 +73,7 @@ export default {
   'inventory': [
     {
       id: uuid.v4(),
+      name: 'Ghosty Head Strap-On',
       'slot': 'headDeco',
       'species': 'ghosty',
       category: 'heads',
@@ -73,20 +81,31 @@ export default {
     },
     {
       id: uuid.v4(),
-      'slot': 'headDeco',
+      name: 'Ghosty Tail',
+      'slot': 'tailDeco',
       'species': 'ghosty',
-      category: 'heads',
+      category: 'tails',
       'stats': stats(1, 1, 1)
     },
     {
       id: uuid.v4(),
-      'slot': 'leftArm',
+      name: 'Ghosty Right Leg',
+      'slot': 'rightLeg',
       'species': 'ghosty',
-      category: 'arms',
+      category: 'legs',
       'stats': stats(1, 1, 1)
     },
     {
       id: uuid.v4(),
+      name: 'Ghosty Left Leg',
+      'slot': 'leftLeg',
+      'species': 'ghosty',
+      category: 'legs',
+      'stats': stats(1, 1, 1)
+    },
+    {
+      id: uuid.v4(),
+      name: 'Ghosty Right Arm',
       'slot': 'rightArm',
       'species': 'ghosty',
       category: 'arms',
@@ -94,107 +113,10 @@ export default {
     },
     {
       id: uuid.v4(),
-      'slot': 'tailDeco',
+      name: 'Ghosty Left Arm',
+      'slot': 'leftArm',
       'species': 'ghosty',
-      category: 'tails',
-      'stats': stats(1, 1, 1)
-    },
-    {
-      id: uuid.v4(),
-      'slot': 'tailDeco',
-      'species': 'ghosty',
-      category: 'tails',
-      'stats': stats(1, 1, 1)
-    },
-    {
-      id: uuid.v4(),
-      'slot': 'tailDeco',
-      'species': 'ghosty',
-      category: 'tails',
-      'stats': stats(1, 1, 1)
-    },
-    {
-      id: uuid.v4(),
-      'slot': 'tailDeco',
-      'species': 'ghosty',
-      category: 'tails',
-      'stats': stats(1, 1, 1)
-    },
-    {
-      id: uuid.v4(),
-      'slot': 'tailDeco',
-      'species': 'ghosty',
-      category: 'tails',
-      'stats': stats(1, 1, 1)
-    },
-    {
-      id: uuid.v4(),
-      'slot': 'tailDeco',
-      'species': 'ghosty',
-      category: 'tails',
-      'stats': stats(1, 1, 1)
-    },
-    {
-      id: uuid.v4(),
-      'slot': 'tailDeco',
-      'species': 'ghosty',
-      category: 'tails',
-      'stats': stats(1, 1, 1)
-    },
-    {
-      id: uuid.v4(),
-      'slot': 'tailDeco',
-      'species': 'ghosty',
-      category: 'tails',
-      'stats': stats(1, 1, 1)
-    },
-    {
-      id: uuid.v4(),
-      'slot': 'tailDeco',
-      'species': 'ghosty',
-      category: 'tails',
-      'stats': stats(1, 1, 1)
-    },
-    {
-      id: uuid.v4(),
-      'slot': 'tailDeco',
-      'species': 'ghosty',
-      category: 'tails',
-      'stats': stats(1, 1, 1)
-    },
-    {
-      id: uuid.v4(),
-      'slot': 'tailDeco',
-      'species': 'ghosty',
-      category: 'tails',
-      'stats': stats(1, 1, 1)
-    },
-    {
-      id: uuid.v4(),
-      'slot': 'tailDeco',
-      'species': 'ghosty',
-      category: 'tails',
-      'stats': stats(1, 1, 1)
-    },
-    {
-      id: uuid.v4(),
-      'slot': 'leftLeg',
-      'species': 'ghosty',
-      category: 'legs',
-      'stats': stats(1, 1, 1)
-    },
-    {
-      id: uuid.v4(),
-      'slot': 'leftLeg',
-      'species': 'ghosty',
-      category: 'legs',
-      'stats': stats(1, 1, 1)
-    },
-    {
-      id: uuid.v4(),
-      'slot': 'rightLeg',
-      'species': 'ghosty',
-      category: 'legs',
+      category: 'arms',
       'stats': stats(1, 1, 1)
     }
   ]

@@ -19,11 +19,12 @@ export default class Game {
   }
 
   create() {
-    this.getOrCreateMonster().then(() => {
+    this.getOrCreateMonster().then((monsterData) => {
       this.game.add.existing(this.monster);
       this.monster.x = MONSTER_CENTER[0];
       this.monster.y = MONSTER_CENTER[1];
-      this.inventory = new Inventory(this.game, 400, 225, this.monster.inventory);
+      console.log(monsterData);
+      this.inventory = new Inventory(this.game, 400, 225, monsterData.inventory);
       this.game.add.existing(this.inventory);
       this.inventory.position.x = 400;
     });
@@ -43,6 +44,7 @@ export default class Game {
         }
       }).then((monsterData) => {
         this.monster = new Monster(this.game, monsterData);
+        return monsterData;
       }).catch(() => {
         this.error = 'OH GOD';
       });
@@ -52,6 +54,7 @@ export default class Game {
       authService.token = this.authToken;
       return monsterService.post().then((monsterData) => {
         this.monster = new Monster(this.game, monsterData);
+        return monsterData;
       });
     }
   }
