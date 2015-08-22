@@ -10,6 +10,7 @@ export default class Monster extends Phaser.Group {
 
     this.monsterName = data.name;
     this.body = this.add(new Part(game, 0, 0, data.parts.body));
+    this.body.scaleToMonster();
     this.partsLocations = {
       headDeco: [this.body.x, this.body.y - (this.body.height / 2)],
       leftArm: [this.body.x - (this.body.width / 2), this.body.y],
@@ -38,7 +39,6 @@ export default class Monster extends Phaser.Group {
   }
 
   movePart(part) {
-
     part.x = this.partsLocations[part.slot][0];
     part.y = this.partsLocations[part.slot][1];
   }
@@ -51,6 +51,8 @@ export default class Monster extends Phaser.Group {
     var removed = this.parts[part.slot];
     this.remove(removed);
     this.parts[part.slot] = part;
+    this.movePart(part);
+    part.scaleToMonster();
     this.add(part);
     this.inventory.push(removed);
     events.addToInventory.dispatch(removed);

@@ -107,7 +107,7 @@ export default {
       id: uuid.v4(),
       name: 'Ghosty Right Arm',
       'slot': 'rightArm',
-      'species': 'ghosty',
+      'species': 'ghosty-red',
       category: 'arms',
       'stats': stats(1, 1, 1)
     },
@@ -115,7 +115,7 @@ export default {
       id: uuid.v4(),
       name: 'Ghosty Left Arm',
       'slot': 'leftArm',
-      'species': 'ghosty',
+      'species': 'ghosty-red',
       category: 'arms',
       'stats': stats(1, 1, 1)
     }
