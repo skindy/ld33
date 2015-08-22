@@ -10,42 +10,47 @@ export default {
   "name": "fart",
   currentHealth: 4,
   currentHunger: 3,
-  "body": [
-    {
-      "slot": "head",
-      "species": "human",
+  parts: {
+    headDeco: {
+      "slot": "headDeco",
+      "species": "ghosty",
       "stats": stats(1, 1, 1)
     },
-    {
+    body: {
       "slot": "body",
-      "species": "human",
+      "species": "ghosty",
       "stats": stats(1, 1, 1)
     },
-    {
+    rightArm: {
       "slot": "rightArm",
-      "species": "human",
+      "species": "ghosty",
       "stats": stats(1, 1, 1)
     },
-    {
+    leftArm: {
       "slot": "leftArm",
-      "species": "human",
+      "species": "ghosty",
       "stats": stats(1, 1, 1)
     },
-    {
+    rightLeg: {
       "slot": "rightLeg",
-      "species": "human",
+      "species": "ghosty",
       "stats": stats(1, 1, 1)
     },
-    {
+    leftLeg: {
       "slot": "leftLeg",
-      "species": "human",
+      "species": "ghosty",
+      "stats": stats(1, 1, 1)
+    },
+    tailDeco: {
+      "slot": "tailDeco",
+      "species": "ghosty",
       "stats": stats(1, 1, 1)
     }
-  ],
+  },
   "inventory": [
     {
       "slot": "leftLeg",
-      "species": "human",
+      "species": "ghosty",
       "stats": stats(1, 1, 1)
     }
   ]

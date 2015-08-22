@@ -10,7 +10,7 @@ let FFF = {};
 
 FFF.Boot = Boot;
 FFF.Game = Game;
-FFF.Game = Encounter;
+//FFF.Game = Encounter;
 
 let game = new Phaser.Game(
   width,

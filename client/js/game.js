@@ -3,35 +3,52 @@ const Phaser = PhaserContainer.Phaser;
 import _ from 'lodash';
 import Monster from './monster';
 import monsterService from './services/monster-service';
+import authService from './services/auth-service';
 import uuid from 'uuid';
 
 const TILE_SIZE = 40;
+const MONSTER_CENTER = [190, 165];
 
 export default class Game {
   preload() {
-    this.load.tilemap('partsMap', 'client/assets/parts.json', null, Phaser.Tilemap.TILED_JSON);
-    this.load.spritesheet('parts', 'client/img/parts.png', TILE_SIZE, TILE_SIZE);
+    this.load.atlasJSONHash('parts', 'client/img/parts.png', 'client/json/parts.json');
     this.load.image('pressStart', 'client/img/press-start.png');
   }
 
   create() {
-    this.authToken = localStorage.getItem('fff/authToken');
-    if (!this.authToken) {
-      this.authToken = uuid.v4();
-      localStorage.setItem('fff/authToken', this.authToken);
-      monsterService.post().then((monsterData) => {
-        this.monster = new Monster(this.game, monsterData);
-      });
-    } else {
-      monsterService.get().then((monsterData) => {
-        this.monster = new Monster(this.game, monsterData);
-      });
-    }
+    this.getOrCreateMonster().then(() => {
+      this.game.add.existing(this.monster);
+      this.monster.x = MONSTER_CENTER[0];
+      this.monster.y = MONSTER_CENTER[1];
+    });
+
+    this.game.stage.backgroundColor = 'ffffff';
 
   }
 
-  createMonster() {
-    console.log()
+  getOrCreateMonster() {
+    this.authToken = localStorage.getItem('fff/authToken');
+    if (this.authToken) {
+      authService.token = this.authToken;
+      return monsterService.get().catch(function(response) {
+        if (response.code === 404) {
+          return monsterService.post();
+        } else {
+          throw new Error('Got a horrible response from the server!');
+        }
+      }).then((monsterData) => {
+        this.monster = new Monster(this.game, monsterData);
+      }).catch(() => {
+        this.error = 'OH GOD';
+      });
+    } else {
+      this.authToken = uuid.v4();
+      localStorage.setItem('fff/authToken', this.authToken);
+      authService.token = this.authToken;
+      return monsterService.post().then((monsterData) => {
+        this.monster = new Monster(this.game, monsterData);
+      });
+    }
   }
 
   update() {
