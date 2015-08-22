@@ -1,0 +1,33 @@
+{
+  "name": "ld33",
+  "version": "0.0.1",
+  "description": "Ludum Dare 33 - Squid Blink Studios",
+  "main": "index.js",
+  "scripts": {
+    "start": "browser-sync start --server --files client/*.*",
+    "test": "mocha"
+  },
+  "author": "David Edmondson",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^2.8.2",
+    "jspm": "^0.15.7",
+    "uglifyjs": "^2.4.10"
+  },
+  "jspm": {
+    "directories": {},
+    "dependencies": {
+      "fetch": "npm:whatwg-fetch@^0.9.0",
+      "lodash": "npm:lodash@^3.10.1",
+      "md5": "npm:md5@^2.0.0",
+      "phaser": "github:photonstorm/phaser@^2.4.2",
+      "uuid": "npm:uuid@^2.0.1",
+      "whatwg-fetch": "npm:whatwg-fetch@^0.9.0"
+    },
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.1.13",
+      "babel-runtime": "npm:babel-runtime@^5.1.13",
+      "core-js": "npm:core-js@^0.9.4"
+    }
+  }
+}

@@ -194,3 +194,9 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+
+# Client side junk
+.idea/
+node_modules/
+jspm_packages/
+dist/
