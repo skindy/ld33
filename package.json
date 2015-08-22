@@ -4,7 +4,7 @@
   "description": "Ludum Dare 33 - Squid Blink Studios",
   "main": "index.js",
   "scripts": {
-    "start": "browser-sync start --server --files client/*.*",
+    "start": "browser-sync start --server --files client/**/*.*",
     "test": "mocha"
   },
   "author": "David Edmondson",
