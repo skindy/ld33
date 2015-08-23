@@ -33,7 +33,7 @@ export default class Game {
 
     this.game.stage.backgroundColor = 'e0dfcd';
 
-    this.encounterButton = new Button(this.game, this.startEncounter, this, {title: 'Replace'});
+    this.encounterButton = new Button(this.game, this.startEncounter, this, {title: 'Fight'});
     this.encounterButton.x = 200;
     this.encounterButton.y = 350;
     this.game.add.existing(this.encounterButton);

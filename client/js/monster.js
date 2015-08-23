@@ -9,19 +9,21 @@ export default class Monster extends Phaser.Group {
     super(game);
 
     this.monsterName = data.name;
-    this.body = this.add(new Part(game, 0, 0, data.parts.body));
+    this.body = new Part(game, 0, 0, data.parts.body);
     this.body.scaleToMonster();
     this.partsLocations = {
-      headDeco: [this.body.x, this.body.y - (this.body.height / 2)],
-      leftArm: [this.body.x - (this.body.width / 2), this.body.y],
-      rightArm: [this.body.x + (this.body.width / 2), this.body.y],
-      tailDeco: [this.body.x + (this.body.width / 2), this.body.y + (this.body.height * (2/5)) ],
-      leftLeg: [this.body.x - (this.body.width * (1/6)), this.body.y + (this.body.height / 2)],
-      rightLeg: [this.body.x + (this.body.width * (1/6)), this.body.y + (this.body.height / 2)]
+      headDeco: [this.body.x, this.body.y - (this.body.height / 2 - 10)],
+      leftArm: [this.body.x - (this.body.width / 2 - 10), this.body.y],
+      rightArm: [this.body.x + (this.body.width / 2 - 10), this.body.y],
+      tailDeco: [this.body.x + (this.body.width / 2 - 10), this.body.y + (this.body.height * (2/5)) ],
+      leftLeg: [this.body.x - (this.body.width * (1/6)), this.body.y + (this.body.height / 2 - 10)],
+      rightLeg: [this.body.x + (this.body.width * (1/6)), this.body.y + (this.body.height / 2 - 10)]
     };
 
     this.parts = {};
-    _.forEach(['headDeco', 'leftArm', 'rightArm', 'tailDeco', 'leftLeg', 'rightLeg'], (slot) => {
+    _.forEach(['headDeco', 'tailDeco', 'leftArm', 'leftLeg', 'rightLeg', 'body', 'rightArm'], (slot) => {
+      if (slot === 'body') return this.add(this.body);
+
       let part = new Part(game, 0, 0, data.parts[slot]);
       this.movePart(part);
       part.scaleToMonster();

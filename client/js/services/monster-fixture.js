@@ -24,10 +24,12 @@ function stats(a, b, c) {
 
 function part() {
   let slot = _.sample(SLOTS);
+  let species = _.sample(SPECIES);
   return {
     id: uuid.v4(),
     slot: slot,
-    species: _.sample(SPECIES),
+    name: `${species} ${slot}`,
+    species: species,
     category: SLOTS_MAP[slot],
     stats: stats(4, 2, 5)
   };

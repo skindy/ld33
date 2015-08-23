@@ -2,7 +2,8 @@ import { default as PhaserContainer } from 'phaser';
 const Phaser = PhaserContainer.Phaser;
 import _ from 'lodash';
 import Button from './button';
-import monsterService from './services/monster-service';
+import encounterService from './services/encounter-service';
+import Alert from './alert';
 
 export default class Encounter extends Phaser.Group {
   constructor(game, monster, enemy) {
@@ -28,7 +29,9 @@ export default class Encounter extends Phaser.Group {
     this.enemy.scale.y = 0.8;
 
     this.addButtons();
-    this.game.add.tween(this.position).to( { x: 0, y: 0 }, 800, Phaser.Easing.Cubic.Out, true);
+    this.game.add.tween(this.position).to({ x: 0, y: 0 }, 800, Phaser.Easing.Cubic.Out, true);
+
+    this.message = new Alert(this.game, '');
   }
 
   addButtons() {
@@ -48,29 +51,69 @@ export default class Encounter extends Phaser.Group {
   }
 
   fight() {
-    monsterService.fight(this.monster.id, this.enemy.id).then(function(response) {
-      if (response.won) {
-
-      } else {
-      }
-    });
+    var originalPosition = { x: this.monster.position.x, y: this.monster.position.y };
+    var originalScale = { x: this.monster.scale.x, y: this.monster.scale.y };
+    var move = this.game.add.tween(this.monster.position).to({ x: this.enemy.position.x, y: this.enemy.position.y }, 500, Phaser.Easing.Cubic.InOut, true);
+    this.game.add.tween(this.monster.scale).to({ x: -this.enemy.scale.x, y: this.enemy.scale.y }, 500, Phaser.Easing.Cubic.InOut, true);
+    var fight = encounterService.fight(this.monster.id, this.enemy.id);
+    move.onComplete.add(() => {
+      setTimeout(() => {
+        fight.then((response) => {
+          this.dealWithIt(response);
+          this.game.add.tween(this.monster.position).to({ x: originalPosition.x, y: originalPosition.y }, 500, Phaser.Easing.Cubic.InOut, true);
+          this.game.add.tween(this.monster.scale).to({ x: originalScale.x, y: originalScale.y }, 500, Phaser.Easing.Cubic.InOut, true);
+        });
+      }, 1000);
+    }, this);
   }
 
   fuck() {
-    monsterService.fuck(this.monster.id, this.enemy.id).then(function(response) {
-      if (response.success) {
-
-      } else {
-      }
-    });
+    var originalPosition = { x: this.monster.position.x, y: this.monster.position.y };
+    var originalScale = { x: this.monster.scale.x, y: this.monster.scale.y };
+    var move = this.game.add.tween(this.monster.position).to({ x: this.enemy.position.x, y: this.enemy.position.y }, 500, Phaser.Easing.Cubic.InOut, true);
+    this.game.add.tween(this.monster.scale).to({ x: -this.enemy.scale.x, y: this.enemy.scale.y }, 500, Phaser.Easing.Cubic.InOut, true);
+    var fuck = encounterService.fuck(this.monster.id, this.enemy.id);
+    move.onComplete.add(() => {
+      setTimeout(() => {
+        fuck.then((response) => {
+          this.dealWithIt(response);
+          this.game.add.tween(this.monster.position).to({ x: originalPosition.x, y: originalPosition.y }, 500, Phaser.Easing.Cubic.InOut, true);
+          this.game.add.tween(this.monster.scale).to({ x: originalScale.x, y: originalScale.y }, 500, Phaser.Easing.Cubic.InOut, true);
+        });
+      }, 1000);
+    }, this);
   }
 
   flee() {
-    monsterService.flee(this.monster.id, this.enemy.id).then(function(response) {
-      if (response.success) {
+    var originalPosition = { x: this.monster.position.x, y: this.monster.position.y };
+    var originalScale = { x: this.monster.scale.x, y: this.monster.scale.y };
+    var move = this.game.add.tween(this.monster.position).to({ x: this.enemy.position.x, y: this.enemy.position.y }, 500, Phaser.Easing.Cubic.InOut, true);
+    this.game.add.tween(this.monster.scale).to({ x: -this.enemy.scale.x, y: this.enemy.scale.y }, 500, Phaser.Easing.Cubic.InOut, true);
+    var flee = encounterService.flee(this.monster.id, this.enemy.id);
+    move.onComplete.add(() => {
+      setTimeout(() => {
+        flee.then((response) => {
+          this.dealWithIt(response);
+          this.game.add.tween(this.monster.position).to({ x: originalPosition.x, y: originalPosition.y }, 500, Phaser.Easing.Cubic.InOut, true);
+          this.game.add.tween(this.monster.scale).to({ x: originalScale.x, y: originalScale.y }, 500, Phaser.Easing.Cubic.InOut, true);
+        });
+      }, 1000);
+    }, this);
+  }
 
-      } else {
-      }
-    });
+  dealWithIt(result) {
+    if (result.won) {
+      this.message.setText(`You successfully ${result.monster.action}ed your way out!`);
+      this.message.visible = true;
+      setTimeout(() => {
+        this.message.visible = false;
+      }, 2000);
+    } else {
+      this.message.setText(`You got ${result.enemy.action}ed to death.`);
+      this.message.visible = true;
+      setTimeout(() => {
+        this.message.visible = false;
+      }, 2000);
+    }
   }
 }

@@ -15,9 +15,9 @@ export default {
     return Promise.resolve({});
   },
   delete: function(id) {
-    return Promise.resolve({})
+    return Promise.resolve({});
   },
   encounter: function(id) {
-    return Promise.resolve(encounterFixture);
+    return Promise.resolve({enemy: monsterFixture});
   }
 };
