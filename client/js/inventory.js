@@ -123,18 +123,25 @@ export default class Inventory extends Phaser.Group {
   addStatButtons() {
     this.eatButton = new Button(this.game, this.eatPart, this, {title: 'Eat'});
     this.eatButton.x = this.width - PADDING.x - this.eatButton.width - 20;
-    this.eatButton.y = 340;
+    this.eatButton.y = 380;
     this.add(this.eatButton);
 
     this.replaceButton = new Button(this.game, this.replacePart, this, {title: 'Replace'});
     this.replaceButton.x = this.width - PADDING.x - this.replaceButton.width - 20;
-    this.replaceButton.y = 380;
+    this.replaceButton.y = 340;
     this.add(this.replaceButton);
   }
 
   eatPart() {
-    events.eatPart.dispatch(this.selectedBlock.part);
+    this.removeTile(this.selectedBlock);
+    let part = this.selectedBlock.part;
+    events.eatPart.dispatch(part);
+    let tile = this.selectedBlock.tile;
     this.selectedBlock.part = null;
+    this.selectedBlock.tile = null;
+    tile.destroy();
+    this.selectedBlock.destroy();
+    this.updateTiles();
   }
 
   removeTile(block) {

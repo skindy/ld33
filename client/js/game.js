@@ -5,9 +5,11 @@ import uuid from 'uuid';
 
 import Monster from './monster';
 import Inventory from './inventory';
+import Encounter from './encounter';
 
 import monsterService from './services/monster-service';
 import authService from './services/auth-service';
+import Button from './button';
 
 const MONSTER_CENTER = [190, 165];
 
@@ -15,6 +17,7 @@ export default class Game {
   preload() {
     this.load.atlasJSONHash('parts', 'client/img/parts.png', 'client/json/parts.json');
     this.load.atlasJSONHash('ui', 'client/img/ui.png', 'client/json/ui.json');
+    this.load.atlasJSONHash('encounter', 'client/img/encounter.png', 'client/json/encounter.json');
     this.load.image('pressStart', 'client/img/press-start.png');
   }
 
@@ -23,13 +26,17 @@ export default class Game {
       this.game.add.existing(this.monster);
       this.monster.x = MONSTER_CENTER[0];
       this.monster.y = MONSTER_CENTER[1];
-      console.log(monsterData);
       this.inventory = new Inventory(this.game, 400, 225, monsterData.inventory);
       this.game.add.existing(this.inventory);
       this.inventory.position.x = 400;
     });
 
     this.game.stage.backgroundColor = 'e0dfcd';
+
+    this.encounterButton = new Button(this.game, this.startEncounter, this, {title: 'Replace'});
+    this.encounterButton.x = 200;
+    this.encounterButton.y = 350;
+    this.game.add.existing(this.encounterButton);
   }
 
   getOrCreateMonster() {
@@ -57,6 +64,13 @@ export default class Game {
         return monsterData;
       });
     }
+  }
+
+  startEncounter() {
+    monsterService.encounter(this.monster.id).then((data) => {
+      let enemy = new Monster(this.game, data.enemy);
+      var encounter = new Encounter(this.game, this.monster, enemy);
+    });
   }
 
   update() {

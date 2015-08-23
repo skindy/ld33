@@ -26,14 +26,13 @@ export default class Monster extends Phaser.Group {
       this.movePart(part);
       part.scaleToMonster();
       this.parts[slot] = part;
-      console.log(part.x);
-      console.log(part.y);
       this.add(part);
     });
     this.stats = data.stats;
     this.inventory = _.map(data.inventory, (partData) => {
       return new Part(this.game, 0, 0, partData);
     });
+    // TODO probably should check if the monster is the player, huh
     events.eatPart.add(this.eatPart, this);
     events.replacePart.add(this.replacePart, this);
   }
